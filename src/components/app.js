@@ -18,22 +18,6 @@ const App = () => {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       const response = await fetch(`${BASE_URL}/posts`);
-  //       const postsInfo = await response.json();
-  //       console.log(postsInfo.data.posts);
-  //       setPosts(postsInfo.data.posts);
-  //     } catch (error) {
-  //       console.error(error);
-  //       console.log("Can't fetch posts");
-  //     }
-  //   };
-
-  //   fetchPosts();
-  // }, []);
-
   return (
     <main>
       <nav>

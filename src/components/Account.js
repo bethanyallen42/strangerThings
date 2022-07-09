@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Account = () => {
-  return <div>Account</div>;
+  const [registered, setRegistered] = useState(false);
+  return <div className="page">Account</div>;
 };
 
 export default Account;

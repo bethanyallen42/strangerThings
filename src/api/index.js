@@ -12,7 +12,7 @@ export const fetchPosts = async () => {
   }
 };
 
-export const apiCall = async (url, method, token, body) => {
+export const apiCall = async (path, method, token, body) => {
   try {
     const options = {
       method: method ? method.toUpperCase() : "GET",
@@ -25,7 +25,7 @@ export const apiCall = async (url, method, token, body) => {
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
-    const response = await fetch(`${BASE_URL}/${url}`, options);
+    const response = await fetch(`${BASE_URL}/${path}`, options);
     const data = await response.json();
 
     if (data.error) {
