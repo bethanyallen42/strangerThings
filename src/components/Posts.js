@@ -9,6 +9,7 @@ const Posts = ({ posts, setPosts }) => {
   useEffect(() => {
     (async () => {
       const postInfo = await apiCall("posts");
+      console.log(postInfo, postInfo);
       setPosts(postInfo.data.posts);
     })();
   }, []);

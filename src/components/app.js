@@ -10,7 +10,7 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(false);
   const [token, setToken] = useState("");
-  console.log("in my app", token);
+  console.log("in my app", user, user.username);
 
   return (
     <main>
