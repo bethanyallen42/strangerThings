@@ -2,21 +2,15 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { Home, Posts, Account } from "./index";
 import "../styles.css";
-import { apiCall } from "../api";
 
 const App = () => {
   const BASE_URL =
     "https://strangers-things.herokuapp.com/api/2204-ftb-mt-web-pt";
 
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState(false);
   const [token, setToken] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const postInfo = await apiCall("posts");
-      setPosts(postInfo.data.posts);
-    })();
-  }, []);
+  console.log("in my app", token);
 
   return (
     <main>
@@ -38,7 +32,12 @@ const App = () => {
         <Posts posts={posts} setPosts={setPosts} />
       </Route>
       <Route path="/account">
-        <Account />
+        <Account
+          user={user}
+          setUser={setUser}
+          token={token}
+          setToken={setToken}
+        />
       </Route>
     </main>
   );

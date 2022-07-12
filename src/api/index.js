@@ -1,17 +1,6 @@
 export const BASE_URL =
   "https://strangers-things.herokuapp.com/api/2204-ftb-mt-web-pt";
 
-export const fetchPosts = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/posts`);
-    const postsInfo = await response.json();
-    return postsInfo.data.posts;
-  } catch (error) {
-    console.error(error);
-    console.log("Can't fetch posts");
-  }
-};
-
 export const apiCall = async (path, method, token, body) => {
   try {
     const options = {
@@ -25,6 +14,7 @@ export const apiCall = async (path, method, token, body) => {
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
+
     const response = await fetch(`${BASE_URL}/${path}`, options);
     const data = await response.json();
 
@@ -36,4 +26,12 @@ export const apiCall = async (path, method, token, body) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const loginOrRegister = async (path, username, password) => {
+  const response = await apiCall(`users/${path}`, "POST", null, {
+    user: { username, password },
+  });
+
+  return response.data.token;
 };

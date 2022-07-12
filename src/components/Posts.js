@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { apiCall } from "../api";
 
 const Posts = ({ posts, setPosts }) => {
   console.log(posts, "posts!!!!!!!!!!!!!!!!");
 
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const postInfo = await apiCall("posts");
+      setPosts(postInfo.data.posts);
+    })();
+  }, []);
 
   return (
     <div className="page">

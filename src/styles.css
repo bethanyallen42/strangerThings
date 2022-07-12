@@ -50,7 +50,8 @@ nav {
   align-items: center;
 }
 
-input {
+input,
+button {
   padding: 4px;
 }
 
@@ -84,6 +85,11 @@ input {
   justify-content: space-around;
   font-weight: bold;
   background-color: var(--light-color);
+}
+
+form {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 @media (max-width: 640px) {
