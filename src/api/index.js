@@ -15,6 +15,7 @@ export const apiCall = async (path, method, token, body) => {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
 
+    console.log("options", options);
     const response = await fetch(`${BASE_URL}/${path}`, options);
     const data = await response.json();
 

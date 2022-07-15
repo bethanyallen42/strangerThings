@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { apiCall, loginOrRegister } from "../api";
+import { useHistory } from "react-router-dom";
 
-const LoginOrRegister = ({ token, setToken, setUser }) => {
+const LoginOrRegister = ({ token, setToken, setUser, featuredPost }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [registered, setRegistered] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const history = useHistory();
 
     let returnedToken;
 
@@ -16,6 +18,10 @@ const LoginOrRegister = ({ token, setToken, setUser }) => {
       : (returnedToken = await loginOrRegister("register", username, password));
 
     await setToken(returnedToken);
+
+    // if (featuredPost) {
+    //   history.push(`/posts/${featuredPost._id}`);
+    // }
   };
 
   useEffect(() => {

@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { apiCall } from "../api";
+import { NewPost } from "./index";
 
-const Posts = ({ posts, setPosts }) => {
+const Posts = ({
+  posts,
+  setPosts,
+  featuredPost,
+  setFeaturedPost,
+  displayPost,
+  token,
+}) => {
   console.log(posts, "posts!!!!!!!!!!!!!!!!");
 
   const [search, setSearch] = useState("");
+  const [makeNewPost, setMakeNewPost] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -13,6 +24,11 @@ const Posts = ({ posts, setPosts }) => {
       setPosts(postInfo.data.posts);
     })();
   }, []);
+
+  const handleClick = (post) => {
+    setFeaturedPost(post);
+    history.push(`/posts/${post._id}`);
+  };
 
   return (
     <div className="page">
@@ -24,7 +40,15 @@ const Posts = ({ posts, setPosts }) => {
           name="search"
           placeholder="search posts"
         />
+        {token && (
+          <button onClick={() => setMakeNewPost(true)}>
+            Post an item for sale
+          </button>
+        )}
       </div>
+      {token && makeNewPost && (
+        <NewPost setMakeNewPost={setMakeNewPost} token={token} />
+      )}
       {posts
         .filter((post) => {
           return `${post.description} ${post.title} ${post.location} ${post.author.username}`
@@ -33,19 +57,13 @@ const Posts = ({ posts, setPosts }) => {
         })
         .map((post) => {
           return (
-            <div key={post._id} className="post">
-              <div className="postHeader">
-                <h2>{post.title && post.title}</h2>
-                <p>{post.price && post.price}</p>
-              </div>
-              <p className="postDescription">
-                {post.description && post.description}
-              </p>
-              <div className="postFooter">
-                <p>Location: {post.location ? post.location : "On Request"}</p>
-                <p>Author: {post.author.username && post.author.username}</p>
-                <p>{post.willDeliver ? "Will Deliver" : "Must Pickup"}</p>
-              </div>
+            <div
+              className="post"
+              key={post._id}
+              onClick={() => handleClick(post)}
+            >
+              {displayPost(post)}
+              {/* Include something to indicate if it is the user's post*/}
             </div>
           );
         })}

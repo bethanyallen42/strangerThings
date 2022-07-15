@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, Route } from "react-router-dom";
-import { Home, Posts, Account } from "./index";
+import { Home, Posts, Account, FeaturedPost, NewPost } from "./index";
 import "../styles.css";
 
 const App = () => {
@@ -10,7 +10,27 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(false);
   const [token, setToken] = useState("");
-  console.log("in my app", user, user.username);
+  const [featuredPost, setFeaturedPost] = useState({});
+  console.log("user", user);
+
+  const displayPost = (post) => {
+    return (
+      <>
+        <div className="postHeader">
+          <h2>{post.title && post.title}</h2>
+          <p>{post.price && post.price}</p>
+        </div>
+        <p className="postDescription">
+          {post.description && post.description}
+        </p>
+        <div className="postFooter">
+          <p>Location: {post.location ? post.location : "On Request"}</p>
+          <p>Author: {post.author.username && post.author.username}</p>
+          <p>{post.willDeliver ? "Will Deliver" : "Must Pickup"}</p>
+        </div>
+      </>
+    );
+  };
 
   return (
     <main>
@@ -29,7 +49,24 @@ const App = () => {
         <Home />
       </Route>
       <Route path="/posts">
-        <Posts posts={posts} setPosts={setPosts} />
+        <Posts
+          posts={posts}
+          setPosts={setPosts}
+          featuredPost={featuredPost}
+          setFeaturedPost={setFeaturedPost}
+          displayPost={displayPost}
+          token={token}
+        />
+        <Route path="/posts/:postId">
+          {featuredPost && (
+            <FeaturedPost
+              featuredPost={featuredPost}
+              setFeaturedPost={setFeaturedPost}
+              displayPost={displayPost}
+              token={token}
+            />
+          )}
+        </Route>
       </Route>
       <Route path="/account">
         <Account
@@ -37,6 +74,7 @@ const App = () => {
           setUser={setUser}
           token={token}
           setToken={setToken}
+          featuredPost={featuredPost}
         />
       </Route>
     </main>

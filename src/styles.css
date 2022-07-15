@@ -41,18 +41,23 @@ nav {
 }
 
 .page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 50px;
 }
 
 .pageHeader {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  width: 75vw;
 }
 
 input,
 button {
   padding: 4px;
+  margin: 0px 10px;
 }
 
 .post {
@@ -64,6 +69,10 @@ button {
   margin: 10px;
   width: 50vw;
   min-height: 150px;
+}
+
+.post:hover {
+  cursor: pointer;
 }
 
 .postHeader {
@@ -87,12 +96,53 @@ button {
   background-color: var(--light-color);
 }
 
+.wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featuredFooter {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-color);
+  padding: 5px;
+}
+
+.messageInput {
+  min-height: 50px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+button {
+  margin: 5px;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: var(--accent3);
+}
+
 form {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-@media (max-width: 640px) {
+.newPostForm {
+}
+
+@media (max-width: 800px) {
   .pageHeader {
     flex-direction: column;
   }
