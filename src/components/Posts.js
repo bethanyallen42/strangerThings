@@ -10,19 +10,22 @@ const Posts = ({
   setFeaturedPost,
   displayPost,
   token,
+  user,
 }) => {
-  console.log(posts, "posts!!!!!!!!!!!!!!!!");
-
   const [search, setSearch] = useState("");
   const [makeNewPost, setMakeNewPost] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     (async () => {
-      const postInfo = await apiCall("posts");
+      const postInfo = await apiCall("posts", "GET", token);
       setPosts(postInfo.data.posts);
+      if (token) {
+        console.log("There is a token");
+      }
+      console.log("in my posts api call", posts);
     })();
-  }, []);
+  }, [user]);
 
   const handleClick = (post) => {
     setFeaturedPost(post);
@@ -34,7 +37,7 @@ const Posts = ({
       <div className="pageHeader">
         <h1>Items for Sale</h1>
         <input
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
           type="text"
           name="search"
           placeholder="search posts"

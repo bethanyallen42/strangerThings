@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { Home, Posts, Account, FeaturedPost, NewPost } from "./index";
 import "../styles.css";
+import { apiCall } from "../api";
 
 const App = () => {
   const BASE_URL =
@@ -11,7 +12,6 @@ const App = () => {
   const [user, setUser] = useState(false);
   const [token, setToken] = useState("");
   const [featuredPost, setFeaturedPost] = useState({});
-  console.log("user", user);
 
   useEffect(() => {
     try {
@@ -68,6 +68,7 @@ const App = () => {
           setFeaturedPost={setFeaturedPost}
           displayPost={displayPost}
           token={token}
+          user={user}
         />
         <Route path="/posts/:postId">
           {featuredPost && (
@@ -90,7 +91,22 @@ const App = () => {
           token={token}
           setToken={setToken}
           featuredPost={featuredPost}
+          setFeaturedPost={setFeaturedPost}
+          displayPost={displayPost}
         />
+        <Route path="/posts/:postId">
+          {featuredPost && (
+            <FeaturedPost
+              featuredPost={featuredPost}
+              setFeaturedPost={setFeaturedPost}
+              displayPost={displayPost}
+              token={token}
+              user={user}
+              posts={posts}
+              setPosts={setPosts}
+            />
+          )}
+        </Route>
       </Route>
     </main>
   );

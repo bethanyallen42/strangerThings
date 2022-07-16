@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../api";
+import { AuthorConsole } from ".";
 
 const FeaturedPost = ({
   featuredPost,
@@ -13,13 +14,7 @@ const FeaturedPost = ({
 }) => {
   const history = useHistory();
   const [message, setMessage] = useState("");
-  const [isAuthor, setIsAuthor] = useState(false);
-
-  useEffect(() => {
-    if (featuredPost.author._id === user._id) {
-      setIsAuthor(true);
-    }
-  }, []);
+  const isAuthor = featuredPost.isAuthor;
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -53,7 +48,6 @@ const FeaturedPost = ({
   const handleClose = () => {
     setFeaturedPost({});
     setMessage("");
-    setIsAuthor(false);
     history.push("/posts");
   };
 
@@ -78,32 +72,12 @@ const FeaturedPost = ({
               </button>
             </div>
           )}
+          {/*if I want to reuse featuredPost in my UserProfile then I need to rethink this logic*/}
           {token && isAuthor && (
-            <div className="buttonWrapper">
-              <button
-                onClick={() => {
-                  handleDelete();
-                }}
-              >
-                Delete Post
-              </button>
-
-              <button
-                onClick={(e) => {
-                  console.log("edit");
-                }}
-              >
-                Edit Post
-              </button>
-
-              <button
-                onClick={(e) => {
-                  handleClose();
-                }}
-              >
-                Close
-              </button>
-            </div>
+            <AuthorConsole
+              featuredPost={featuredPost}
+              handleClose={handleClose}
+            />
           )}
           {token && !isAuthor && (
             <>

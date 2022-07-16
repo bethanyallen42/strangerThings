@@ -22,7 +22,7 @@ const NewPost = ({ token, setPosts, setMakeNewPost }) => {
     const newPost = await apiCall("posts", "POST", token, post);
 
     (async () => {
-      const postInfo = await apiCall("posts");
+      const postInfo = await apiCall("posts", "GET", token);
       setPosts(postInfo.data.posts);
     })();
 
