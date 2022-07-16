@@ -6,3 +6,4 @@ export { default as FeaturedPost } from "./FeaturedPost";
 export { default as UserProfile } from "./UserProfile";
 export { default as LoginOrRegister } from "./LoginOrRegister";
 export { default as NewPost } from "./NewPost";
+export { default as DisplayPost } from "./DisplayPost";

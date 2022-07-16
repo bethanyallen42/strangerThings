@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { apiCall } from "../api";
 
-const NewPost = ({ token }) => {
+const NewPost = ({ token, setPosts, setMakeNewPost }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -10,7 +10,7 @@ const NewPost = ({ token }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const post = {
+    let post = {
       post: {
         title,
         description,
@@ -19,9 +19,15 @@ const NewPost = ({ token }) => {
         willDeliver,
       },
     };
-    console.log("myNewPost", post);
     const newPost = await apiCall("posts", "POST", token, post);
-    console.log("new post api call", newPost);
+
+    (async () => {
+      const postInfo = await apiCall("posts");
+      setPosts(postInfo.data.posts);
+    })();
+
+    setMakeNewPost(false);
+    alert("Post submitted");
   };
 
   return (

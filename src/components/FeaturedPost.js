@@ -1,20 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { apiCall } from "../api";
 
 const FeaturedPost = ({
   featuredPost,
   setFeaturedPost,
   displayPost,
   token,
+  user,
+  posts,
+  setPosts,
 }) => {
-  console.log("this is my featured Post", featuredPost);
   const history = useHistory();
   const [message, setMessage] = useState("");
-  console.log(message);
+  const [isAuthor, setIsAuthor] = useState(false);
 
-  const sendMessage = (e) => {
+  useEffect(() => {
+    if (featuredPost.author._id === user._id) {
+      setIsAuthor(true);
+    }
+  }, []);
+
+  const sendMessage = async (e) => {
     e.preventDefault();
-    console.log("Send my message");
+    const newMessage = { message: { content: message } };
+    const response = await apiCall(
+      `posts/${featuredPost._id}/messages`,
+      "POST",
+      token,
+      newMessage
+    );
+    alert("Your message has been sent");
+  };
+
+  const handleDelete = async (e) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      const isDeleted = await apiCall(
+        `posts/${featuredPost._id}`,
+        "DELETE",
+        token
+      );
+      if (isDeleted) {
+        const remainingPosts = posts.filter(
+          (post) => post._id !== featuredPost._id
+        );
+        setPosts(remainingPosts);
+        alert("This post has been deleted");
+      }
+    }
+  };
+
+  const handleClose = () => {
+    setFeaturedPost({});
+    setMessage("");
+    setIsAuthor(false);
+    history.push("/posts");
   };
 
   return (
@@ -22,8 +62,50 @@ const FeaturedPost = ({
       <div className="post">
         {displayPost(featuredPost)}
         <div className="featuredFooter">
-          {/*if token display below else display something about needing to login and a button to the account */}
-          {token ? (
+          {!token && (
+            <div className="buttonWrapper">
+              <p>Please login to send a message</p>
+              <button onClick={() => history.push("/account")}>
+                Login/Register{" "}
+              </button>
+              {/*make a close button component?*/}
+              <button
+                onClick={(e) => {
+                  handleClose();
+                }}
+              >
+                Close
+              </button>
+            </div>
+          )}
+          {token && isAuthor && (
+            <div className="buttonWrapper">
+              <button
+                onClick={() => {
+                  handleDelete();
+                }}
+              >
+                Delete Post
+              </button>
+
+              <button
+                onClick={(e) => {
+                  console.log("edit");
+                }}
+              >
+                Edit Post
+              </button>
+
+              <button
+                onClick={(e) => {
+                  handleClose();
+                }}
+              >
+                Close
+              </button>
+            </div>
+          )}
+          {token && !isAuthor && (
             <>
               <p>Send a message about this item:</p>
               <textarea
@@ -45,32 +127,13 @@ const FeaturedPost = ({
 
                 <button
                   onClick={(e) => {
-                    setFeaturedPost({});
-                    setMessage("");
-                    history.push("/posts");
+                    handleClose();
                   }}
                 >
                   Close
                 </button>
-                {/*shows something different if it is your post? "This is your post." show messages and a delete button */}
               </div>
             </>
-          ) : (
-            <div className="buttonWrapper">
-              <p>Please login to send a message</p>
-              <button onClick={() => history.push("/account")}>
-                Login/Register{" "}
-              </button>
-              <button
-                onClick={(e) => {
-                  setFeaturedPost({});
-                  setMessage("");
-                  history.push("/posts");
-                }}
-              >
-                Close
-              </button>
-            </div>
           )}
         </div>
       </div>

@@ -13,6 +13,18 @@ const App = () => {
   const [featuredPost, setFeaturedPost] = useState({});
   console.log("user", user);
 
+  useEffect(() => {
+    try {
+      const savedUser = JSON.parse(localStorage.getItem("user")).data;
+      const savedToken = localStorage.getItem("token");
+      setUser(savedUser);
+      setToken(savedToken);
+    } catch (error) {
+      console.error();
+    }
+  }, []);
+
+  //should this be changed to a component?? how to use the variable?
   const displayPost = (post) => {
     return (
       <>
@@ -64,6 +76,9 @@ const App = () => {
               setFeaturedPost={setFeaturedPost}
               displayPost={displayPost}
               token={token}
+              user={user}
+              posts={posts}
+              setPosts={setPosts}
             />
           )}
         </Route>

@@ -20,7 +20,6 @@ const Posts = ({
   useEffect(() => {
     (async () => {
       const postInfo = await apiCall("posts");
-      console.log(postInfo, postInfo);
       setPosts(postInfo.data.posts);
     })();
   }, []);
@@ -47,7 +46,11 @@ const Posts = ({
         )}
       </div>
       {token && makeNewPost && (
-        <NewPost setMakeNewPost={setMakeNewPost} token={token} />
+        <NewPost
+          setMakeNewPost={setMakeNewPost}
+          token={token}
+          setPosts={setPosts}
+        />
       )}
       {posts
         .filter((post) => {
@@ -63,7 +66,6 @@ const Posts = ({
               onClick={() => handleClick(post)}
             >
               {displayPost(post)}
-              {/* Include something to indicate if it is the user's post*/}
             </div>
           );
         })}

@@ -9,7 +9,6 @@ const LoginOrRegister = ({ token, setToken, setUser, featuredPost }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const history = useHistory();
 
     let returnedToken;
 
@@ -17,17 +16,15 @@ const LoginOrRegister = ({ token, setToken, setUser, featuredPost }) => {
       ? (returnedToken = await loginOrRegister("login", username, password))
       : (returnedToken = await loginOrRegister("register", username, password));
 
-    await setToken(returnedToken);
-
-    // if (featuredPost) {
-    //   history.push(`/posts/${featuredPost._id}`);
-    // }
+    localStorage.setItem("token", returnedToken);
+    setToken(returnedToken);
   };
 
   useEffect(() => {
     if (token) {
       (async () => {
         const userInfo = await apiCall("users/me", "GET", token);
+        localStorage.setItem("user", JSON.stringify(userInfo));
         setUser(userInfo.data);
       })();
     }
