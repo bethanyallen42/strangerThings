@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AuthorFooter = ({ featuredPost, handleClose }) => {
+const AuthorConsole = ({ featuredPost, handleClose }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const handleEdit = () => {};
   return (
     <>
       <div className="console">
@@ -21,6 +23,7 @@ const AuthorFooter = ({ featuredPost, handleClose }) => {
           })}
         </div>
       </div>
+      {/* {isEditing && } */}
       <div className="buttonWrapper">
         <button
           onClick={() => {
@@ -32,6 +35,7 @@ const AuthorFooter = ({ featuredPost, handleClose }) => {
 
         <button
           onClick={(e) => {
+            handleEdit();
             console.log("edit");
           }}
         >
@@ -50,4 +54,4 @@ const AuthorFooter = ({ featuredPost, handleClose }) => {
   );
 };
 
-export default AuthorFooter;
+export default AuthorConsole;

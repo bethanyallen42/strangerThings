@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { apiCall } from "../api";
 
 const NewPost = ({ token, setPosts, setMakeNewPost }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("On Request");
-  const [willDeliver, setWillDeliver] = useState(false);
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [location, setLocation] = useState("On Request");
+  // const [willDeliver, setWillDeliver] = useState(false);
+  const [newPost, setNewPost] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
