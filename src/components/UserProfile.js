@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthorConsole } from ".";
 
@@ -7,22 +7,31 @@ const UserProfile = ({
   setToken,
   setUser,
   displayPost,
-  featuredPost,
   setFeaturedPost,
+  // activePosts,
+  // setActivePosts,
 }) => {
-  console.log(user.posts);
-  const activePosts = user.posts.filter((post) => post.active);
   const history = useHistory();
-  console.log("filtered posts?", activePosts);
+  const [activePosts, setActivePosts] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      setActivePosts(user.posts.filter((post) => post.active));
+      console.log("I just logged in", activePosts);
+    }
+  }, [user]);
+
+  console.log("at the beginning", activePosts);
+  // useEffect(() => {
+  //   setActivePosts(user.posts.filter((post) => post.active));
+  // }, [user]);
+
+  console.log("activePosts", activePosts);
+  // const activePosts = user.posts.filter((post) => post.active);
 
   const handleClick = (post) => {
     setFeaturedPost(post);
-    history.push(`/posts/${post._id}`);
-  };
-
-  const handleClose = () => {
-    setFeaturedPost({});
-    history.push("/account");
+    history.push(`/account/${post._id}`);
   };
 
   return (
@@ -31,6 +40,7 @@ const UserProfile = ({
 
       <div className="box">
         <h2>Current Posts</h2>
+
         {activePosts.map((post) => {
           return (
             <div
@@ -39,11 +49,6 @@ const UserProfile = ({
               onClick={() => handleClick(post)}
             >
               {displayPost(post)}
-
-              {/* <AuthorConsole
-                featuredPost={featuredPost}
-                handleClose={handleClose}
-              /> */}
             </div>
           );
         })}
@@ -53,6 +58,7 @@ const UserProfile = ({
         onClick={() => {
           setToken("");
           setUser(false);
+          setActivePosts([]);
           localStorage.clear();
         }}
       >

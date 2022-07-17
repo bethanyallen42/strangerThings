@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { LoginOrRegister, UserProfile } from "./index";
 
 const Account = ({
@@ -9,6 +9,8 @@ const Account = ({
   featuredPost,
   setFeaturedPost,
   displayPost,
+  // activePosts,
+  // setActivePosts,
 }) => {
   return (
     <div className="page">
@@ -20,6 +22,8 @@ const Account = ({
           displayPost={displayPost}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
+          // activePosts={activePosts}
+          // setActivePosts={setActivePosts}
         />
       ) : (
         <LoginOrRegister
@@ -27,6 +31,8 @@ const Account = ({
           setToken={setToken}
           setUser={setUser}
           featuredPost={featuredPost}
+          // activePosts={activePosts}
+          // setActivePosts={setActivePosts}
         />
       )}
     </div>

@@ -1,11 +1,15 @@
 import React from "react";
 
 const AuthorFooter = ({ featuredPost, handleClose }) => {
-  console.log(featuredPost.messages);
   return (
     <>
       <div className="console">
         <h2>Messages</h2>
+        <p>
+          {featuredPost.messages.length > 0
+            ? "Scroll to see more messages"
+            : "You do not have any messages"}
+        </p>
         <div className="messageDisplay">
           {featuredPost.messages.map((message) => {
             return (
@@ -16,7 +20,6 @@ const AuthorFooter = ({ featuredPost, handleClose }) => {
             );
           })}
         </div>
-        <p>scroll to see more messages</p>
       </div>
       <div className="buttonWrapper">
         <button

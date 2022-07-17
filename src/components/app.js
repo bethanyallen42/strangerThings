@@ -24,6 +24,14 @@ const App = () => {
     }
   }, []);
 
+  // const [activePosts, setActivePosts] = useState([]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setActivePosts(user.posts.filter((post) => post.active));
+  //     console.log("I just logged in", activePosts);
+  //   }
+  // }, [user]);
+
   //should this be changed to a component?? how to use the variable?
   const displayPost = (post) => {
     return (
@@ -93,8 +101,10 @@ const App = () => {
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
           displayPost={displayPost}
+          // activePosts={activePosts}
+          // setActivePosts={setActivePosts}
         />
-        <Route path="/posts/:postId">
+        <Route path="/account/:postId">
           {featuredPost && (
             <FeaturedPost
               featuredPost={featuredPost}

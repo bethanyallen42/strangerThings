@@ -13,8 +13,21 @@ const FeaturedPost = ({
   setPosts,
 }) => {
   const history = useHistory();
+  // const prevPath = window.location.pathname.includes("path")
   const [message, setMessage] = useState("");
-  const isAuthor = featuredPost.isAuthor;
+  const [isAuthor, setIsAuthor] = useState(false);
+  console.log("featured post", featuredPost);
+  console.log("user", user);
+  console.log("path", window.location.pathname.includes("account"));
+
+  // featuredPost.isAuthor
+  useEffect(() => {
+    if (featuredPost.author === user._id || featuredPost.isAuthor) {
+      console.log("I am the author");
+      setIsAuthor(true);
+    }
+    console.log(featuredPost.isAuthor);
+  }, [featuredPost]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -48,7 +61,16 @@ const FeaturedPost = ({
   const handleClose = () => {
     setFeaturedPost({});
     setMessage("");
-    history.push("/posts");
+
+    /*I tried using history.goBack() here to get to the right page.
+    It worked for my posts page, but my account page wouldn't load correctly.
+    I tried several different things and could never get it to work.*/
+
+    if (window.location.pathname.includes("account")) {
+      history.push("/account");
+    } else {
+      history.push("/posts");
+    }
   };
 
   return (

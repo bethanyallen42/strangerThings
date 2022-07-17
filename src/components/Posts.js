@@ -20,10 +20,6 @@ const Posts = ({
     (async () => {
       const postInfo = await apiCall("posts", "GET", token);
       setPosts(postInfo.data.posts);
-      if (token) {
-        console.log("There is a token");
-      }
-      console.log("in my posts api call", posts);
     })();
   }, [user]);
 
