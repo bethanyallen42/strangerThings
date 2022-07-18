@@ -13,6 +13,8 @@ const Posts = ({
   setUser,
   makeNewPost,
   setMakeNewPost,
+  isFeatured,
+  setIsFeatured,
 }) => {
   const [search, setSearch] = useState("");
 
@@ -66,6 +68,8 @@ const Posts = ({
               token={token}
               user={user}
               posts={posts}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
             />
           );
         })}

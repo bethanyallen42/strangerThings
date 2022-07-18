@@ -11,23 +11,26 @@ const FeaturedPost = ({
   setUser,
   posts,
   setPosts,
+  isFeatured,
+  setIsFeatured,
 }) => {
   const history = useHistory();
   const post = featuredPost;
 
   const [isAuthor, setIsAuthor] = useState(false);
-  const [isFeatured, setIsFeatured] = useState(true);
-  console.log("featured post", featuredPost);
-  console.log("user", user);
-  console.log("path", window.location.pathname.includes("account"));
 
   useEffect(() => {
     if (featuredPost.author === user._id || featuredPost.isAuthor) {
-      console.log("I am the author");
       setIsAuthor(true);
     }
-    console.log(featuredPost.isAuthor);
   }, [featuredPost]);
+
+  useEffect(() => {
+    if (!isFeatured) {
+      setFeaturedPost({});
+    }
+    console.log("----------------------", isFeatured, featuredPost);
+  }, [isFeatured]);
 
   return (
     <div className="wrapper">

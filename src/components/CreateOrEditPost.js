@@ -31,12 +31,14 @@ const CreateOrEditPost = ({
     if (makeNewPost) {
       await apiCall("posts", "POST", token, post);
     } else {
+      console.log("in handleSubmit", token);
       const response = await apiCall(
         `posts/${featuredPost._id}`,
         "PATCH",
         token,
         post
       );
+      console.log("in handleSubmit", token);
       console.log("i'm editing a post", response);
     }
 
@@ -48,7 +50,7 @@ const CreateOrEditPost = ({
     (async () => {
       const userInfo = await apiCall("users/me", "GET", token);
       localStorage.setItem("user", JSON.stringify(userInfo));
-      setUser(userInfo.data);
+      setUser(userInfo?.data);
     })();
 
     if (makeNewPost) {

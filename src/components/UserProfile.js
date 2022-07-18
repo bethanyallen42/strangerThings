@@ -9,8 +9,8 @@ const UserProfile = ({
   setUser,
   setFeaturedPost,
   posts,
-  // activePosts,
-  // setActivePosts,
+  isFeatured,
+  setIsFeatured,
 }) => {
   const history = useHistory();
   const [activePosts, setActivePosts] = useState([]);
@@ -21,19 +21,6 @@ const UserProfile = ({
       console.log("I just logged in", activePosts);
     }
   }, [user]);
-
-  console.log("at the beginning", activePosts);
-  // useEffect(() => {
-  //   setActivePosts(user.posts.filter((post) => post.active));
-  // }, [user]);
-
-  console.log("activePosts", activePosts);
-  // const activePosts = user.posts.filter((post) => post.active);
-
-  // const handleClick = (post) => {
-  //   setFeaturedPost(post);
-  //   history.push(`/account/${post._id}`);
-  // };
 
   return (
     <>
@@ -49,6 +36,9 @@ const UserProfile = ({
               post={post}
               setFeaturedPost={setFeaturedPost}
               posts={posts}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
+              user={user}
             />
           );
         })}

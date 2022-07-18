@@ -13,19 +13,24 @@ const App = () => {
   const [token, setToken] = useState("");
   const [featuredPost, setFeaturedPost] = useState({});
   const [makeNewPost, setMakeNewPost] = useState(false);
-  console.log("app posts", posts);
-  console.log("app user", user);
-
+  const [isFeatured, setIsFeatured] = useState(false);
+  console.log(user);
+  console.log("featured Post", featuredPost);
   useEffect(() => {
     try {
       const savedUser = JSON.parse(localStorage.getItem("user")).data;
       const savedToken = localStorage.getItem("token");
+      console.log("savedToken", savedToken);
       setUser(savedUser);
       setToken(savedToken);
     } catch (error) {
       console.error();
     }
   }, []);
+
+  useEffect(() => {
+    console.log("!!!!!!!!!!!!!!!!!!!", token);
+  }, [token]);
 
   return (
     <main>
@@ -54,6 +59,8 @@ const App = () => {
           setUser={setUser}
           makeNewPost={makeNewPost}
           setMakeNewPost={setMakeNewPost}
+          isFeatured={isFeatured}
+          setIsFeatured={setIsFeatured}
         />
         <Route path="/posts/:postId">
           {featuredPost && (
@@ -65,6 +72,8 @@ const App = () => {
               posts={posts}
               setPosts={setPosts}
               setUser={setUser}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
             />
           )}
         </Route>
@@ -77,6 +86,8 @@ const App = () => {
           setToken={setToken}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
+          isFeatured={isFeatured}
+          setIsFeatured={setIsFeatured}
         />
         <Route path="/account/:postId">
           {featuredPost && (
@@ -88,6 +99,8 @@ const App = () => {
               setUser={setUser}
               posts={posts}
               setPosts={setPosts}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
             />
           )}
         </Route>

@@ -14,13 +14,16 @@ const Post = ({
   isAuthor,
   posts,
   setPosts,
+  user,
   setUser,
 }) => {
   const history = useHistory();
   const [message, setMessage] = useState("");
 
   const handleClick = (post) => {
+    console.log("is there a post?", post);
     setFeaturedPost(post);
+    setIsFeatured(!isFeatured);
     if (window.location.pathname.includes("account")) {
       history.push(`/account/${post._id}`);
     } else {
@@ -37,6 +40,8 @@ const Post = ({
       token,
       newMessage
     );
+    setMessage("");
+    setIsFeatured(!isFeatured);
     alert("Your message has been sent");
     history.goBack();
   };
@@ -55,24 +60,24 @@ const Post = ({
           localStorage.setItem("user", JSON.stringify(userInfo));
           setUser(userInfo.data);
         })();
-
+        setIsFeatured(!isFeatured);
         alert("This post has been deleted");
         history.goBack();
       }
     }
   };
 
-  //my close seems to take a few clicks to work after sending a message or deleting a post...
-  const handleClose = () => {
-    setFeaturedPost({});
+  const handleClose = async () => {
     setMessage("");
-    setIsFeatured(false);
+    setIsFeatured(!isFeatured);
 
     history.goBack();
   };
+  console.log("author", post.author);
+  console.log("user", user);
 
   return (
-    <div className="post" key={post._id} onClick={() => handleClick(post)}>
+    <div className="post" key={post._id}>
       <div className="postHeader">
         <h2>{post.title && post.title}</h2>
         <p>{post.price && post.price}</p>
@@ -80,7 +85,15 @@ const Post = ({
       <p className="postDescription">{post.description && post.description}</p>
       <div className="postFooter">
         <p>Location: {post.location ? post.location : "On Request"}</p>
-        <p>Author: {post.author.username && post.author.username}</p>
+
+        <p>
+          Author:{" "}
+          {post?.author?.username
+            ? post.author.username
+            : user.username
+            ? user.username
+            : null}
+        </p>
         <p>{post.willDeliver ? "Will Deliver" : "Must Pickup"}</p>
       </div>
       {isFeatured && (
@@ -88,13 +101,6 @@ const Post = ({
           {!token && isFeatured && (
             <div className="buttonWrapper">
               <p>Please login to send a message</p>
-              <button
-                onClick={(e) => {
-                  handleClose();
-                }}
-              >
-                Close
-              </button>
             </div>
           )}
 
@@ -104,6 +110,7 @@ const Post = ({
               handleClose={handleClose}
               handleDelete={handleDelete}
               featuredPost={featuredPost}
+              setPosts={setPosts}
             />
           )}
           {token && !isAuthor && isFeatured && (
@@ -125,19 +132,18 @@ const Post = ({
                 >
                   Send Message
                 </button>
-
-                <button
-                  onClick={(e) => {
-                    handleClose();
-                  }}
-                >
-                  Close
-                </button>
               </div>
             </>
           )}
         </div>
       )}
+      <button
+        onClick={(e) => {
+          isFeatured ? handleClose() : handleClick(post);
+        }}
+      >
+        {isFeatured ? "Close" : "See post"}
+      </button>
     </div>
   );
 };

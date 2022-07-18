@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { CreateOrEditPost } from "./index";
 
-const AuthorConsole = ({ post, handleClose, handleDelete, featuredPost }) => {
+const AuthorConsole = ({
+  post,
+  handleClose,
+  handleDelete,
+  featuredPost,
+  setPosts,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   console.log("declared", isEditing);
   return (
@@ -9,7 +15,7 @@ const AuthorConsole = ({ post, handleClose, handleDelete, featuredPost }) => {
       <div className="console">
         {isEditing ? (
           <div>
-            <CreateOrEditPost featuredPost={featuredPost} />
+            <CreateOrEditPost featuredPost={featuredPost} setPosts={setPosts} />
           </div>
         ) : (
           <>
@@ -49,15 +55,6 @@ const AuthorConsole = ({ post, handleClose, handleDelete, featuredPost }) => {
           }}
         >
           {isEditing ? "See Messages" : "Edit Post"}
-        </button>
-
-        <button
-          onClick={(e) => {
-            console.log("I clicked this");
-            handleClose();
-          }}
-        >
-          Close
         </button>
       </div>
     </>

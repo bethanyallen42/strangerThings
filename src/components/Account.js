@@ -8,6 +8,8 @@ const Account = ({
   setUser,
   featuredPost,
   setFeaturedPost,
+  isFeatured,
+  setIsFeatured,
 }) => {
   return (
     <div className="page">
@@ -18,6 +20,8 @@ const Account = ({
           setUser={setUser}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
+          isFeatured={isFeatured}
+          setIsFeatured={setIsFeatured}
         />
       ) : (
         <LoginOrRegister

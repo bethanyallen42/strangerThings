@@ -2,6 +2,7 @@ export const BASE_URL =
   "https://strangers-things.herokuapp.com/api/2204-ftb-mt-web-pt";
 
 export const apiCall = async (path, method, token, body) => {
+  console.log("in apiCall", token);
   try {
     const options = {
       method: method ? method.toUpperCase() : "GET",

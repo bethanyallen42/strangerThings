@@ -13,6 +13,7 @@ const Form = ({
   setMakeNewPost,
 }) => {
   console.log("featured in form", featuredPost);
+  const [required, setRequired] = useState();
   useEffect(() => {
     if (featuredPost) {
       setTitle(featuredPost.title);
@@ -20,14 +21,20 @@ const Form = ({
       setPrice(featuredPost.Price);
       setLocation(featuredPost.location);
       setWillDeliver(featuredPost.willDeliver);
+      setRequired(false);
+    }
+
+    if (makeNewPost) {
+      setRequired(true);
     }
   }, []);
+
   return (
     <form action="" className="newPostForm" onSubmit={(e) => handleSubmit(e)}>
       <div>
         <p>Item:</p>
         <input
-          required
+          required={required}
           type="text"
           placeholder={featuredPost?.title ? featuredPost.title : "required"}
           onChange={(e) => setTitle(e.target.value)}
@@ -36,7 +43,6 @@ const Form = ({
       <div>
         <p>Description:</p>
         <input
-          required
           type="text"
           placeholder={"required"}
           // value={featuredPost?.description && featuredPost.description}
@@ -46,7 +52,7 @@ const Form = ({
       <div>
         <p>Price:</p>
         <input
-          required
+          // required
           type="text"
           placeholder="required"
           // value={featuredPost?.price && featuredPost.price}
