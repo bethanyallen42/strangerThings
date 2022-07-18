@@ -51,6 +51,7 @@ const App = () => {
           setFeaturedPost={setFeaturedPost}
           token={token}
           user={user}
+          setUser={setUser}
           makeNewPost={makeNewPost}
           setMakeNewPost={setMakeNewPost}
         />
@@ -76,8 +77,6 @@ const App = () => {
           setToken={setToken}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
-          // activePosts={activePosts}
-          // setActivePosts={setActivePosts}
         />
         <Route path="/account/:postId">
           {featuredPost && (

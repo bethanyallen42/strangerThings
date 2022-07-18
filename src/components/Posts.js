@@ -48,7 +48,6 @@ const Posts = ({
           setMakeNewPost={setMakeNewPost}
           token={token}
           setPosts={setPosts}
-          featuredPost={featuredPost}
         />
       )}
       {posts

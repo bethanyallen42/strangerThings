@@ -1,29 +1,37 @@
 import React, { useState } from "react";
+import { CreateOrEditPost } from "./index";
 
-const AuthorConsole = ({ post, handleClose, handleDelete }) => {
+const AuthorConsole = ({ post, handleClose, handleDelete, featuredPost }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const handleEdit = () => {};
+  console.log("declared", isEditing);
   return (
     <>
       <div className="console">
-        <h2>Messages</h2>
-        <p>
-          {post.messages.length > 0
-            ? "Scroll to see more messages"
-            : "You do not have any messages"}
-        </p>
-        <div className="messageDisplay">
-          {post.messages.map((message) => {
-            return (
-              <div key={message._id} className="message">
-                <p>{message.content}</p>
-                <p>From: {message.fromUser.username}</p>
-              </div>
-            );
-          })}
-        </div>
+        {isEditing ? (
+          <div>
+            <CreateOrEditPost featuredPost={featuredPost} />
+          </div>
+        ) : (
+          <>
+            <h2>Messages</h2>
+            <p>
+              {post.messages.length > 0
+                ? "Scroll to see more messages"
+                : "You do not have any messages"}
+            </p>
+            <div className="messageDisplay">
+              {post.messages.map((message) => {
+                return (
+                  <div key={message._id} className="message">
+                    <p>{message.content}</p>
+                    <p>From: {message.fromUser.username}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
-      {/* {isEditing && } */}
       <div className="buttonWrapper">
         <button
           onClick={() => {
@@ -35,11 +43,12 @@ const AuthorConsole = ({ post, handleClose, handleDelete }) => {
 
         <button
           onClick={(e) => {
-            handleEdit();
-            console.log("edit");
+            console.log("first", isEditing);
+            setIsEditing(!isEditing);
+            console.log("second", isEditing);
           }}
         >
-          Edit Post
+          {isEditing ? "See Messages" : "Edit Post"}
         </button>
 
         <button

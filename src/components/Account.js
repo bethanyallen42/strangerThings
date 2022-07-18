@@ -8,8 +8,6 @@ const Account = ({
   setUser,
   featuredPost,
   setFeaturedPost,
-  // activePosts,
-  // setActivePosts,
 }) => {
   return (
     <div className="page">
@@ -20,8 +18,6 @@ const Account = ({
           setUser={setUser}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
-          // activePosts={activePosts}
-          // setActivePosts={setActivePosts}
         />
       ) : (
         <LoginOrRegister
@@ -29,8 +25,6 @@ const Account = ({
           setToken={setToken}
           setUser={setUser}
           featuredPost={featuredPost}
-          // activePosts={activePosts}
-          // setActivePosts={setActivePosts}
         />
       )}
     </div>

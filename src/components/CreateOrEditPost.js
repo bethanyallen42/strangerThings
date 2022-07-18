@@ -15,6 +15,7 @@ const CreateOrEditPost = ({
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("On Request");
   const [willDeliver, setWillDeliver] = useState(false);
+  console.log("in create or edit", featuredPost);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,13 @@ const CreateOrEditPost = ({
     if (makeNewPost) {
       await apiCall("posts", "POST", token, post);
     } else {
-      console.log("i'm editing a post");
+      const response = await apiCall(
+        `posts/${featuredPost._id}`,
+        "PATCH",
+        token,
+        post
+      );
+      console.log("i'm editing a post", response);
     }
 
     (async () => {
@@ -44,13 +51,15 @@ const CreateOrEditPost = ({
       setUser(userInfo.data);
     })();
 
-    setMakeNewPost(false);
+    if (makeNewPost) {
+      setMakeNewPost(false);
+    }
     alert("Post submitted");
   };
 
   return (
-    <div className="post">
-      <h3>POST A NEW ITEM FOR SALE</h3>
+    <div className={makeNewPost ? "post" : "edit"}>
+      <h3>{makeNewPost ? "POST A NEW ITEM FOR SALE" : "EDIT YOUR POST"}</h3>
       <Form
         setTitle={setTitle}
         setDescription={setDescription}

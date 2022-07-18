@@ -14,15 +14,13 @@ const FeaturedPost = ({
 }) => {
   const history = useHistory();
   const post = featuredPost;
-  // const prevPath = window.location.pathname.includes("path")
-  // const [message, setMessage] = useState("");
+
   const [isAuthor, setIsAuthor] = useState(false);
   const [isFeatured, setIsFeatured] = useState(true);
   console.log("featured post", featuredPost);
   console.log("user", user);
   console.log("path", window.location.pathname.includes("account"));
 
-  // featuredPost.isAuthor
   useEffect(() => {
     if (featuredPost.author === user._id || featuredPost.isAuthor) {
       console.log("I am the author");

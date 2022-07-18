@@ -143,8 +143,12 @@ button:hover {
 }
 
 form {
+  color: black;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+.edit {
+  background-color: var(--accent1);
 }
 
 .newPostForm {

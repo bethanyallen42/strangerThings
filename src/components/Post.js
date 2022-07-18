@@ -38,6 +38,7 @@ const Post = ({
       newMessage
     );
     alert("Your message has been sent");
+    history.goBack();
   };
 
   const handleDelete = async (e) => {
@@ -47,7 +48,6 @@ const Post = ({
         const remainingPosts = posts.filter(
           (currentPost) => currentPost._id !== post._id
         );
-        console.log("remaining posts!!!!!!!!!!", remainingPosts);
         setPosts(remainingPosts);
 
         (async () => {
@@ -57,6 +57,7 @@ const Post = ({
         })();
 
         alert("This post has been deleted");
+        history.goBack();
       }
     }
   };
@@ -64,9 +65,8 @@ const Post = ({
   //my close seems to take a few clicks to work after sending a message or deleting a post...
   const handleClose = () => {
     setFeaturedPost({});
-    setIsFeatured(false);
-    console.log("featured in close", featuredPost);
     setMessage("");
+    setIsFeatured(false);
 
     history.goBack();
   };
@@ -83,56 +83,11 @@ const Post = ({
         <p>Author: {post.author.username && post.author.username}</p>
         <p>{post.willDeliver ? "Will Deliver" : "Must Pickup"}</p>
       </div>
-      <div className="featuredFooter">
-        {!token && isFeatured && (
-          <div className="buttonWrapper">
-            <p>Please login to send a message</p>
-            {/* <button
-              onClick={() => {
-                console.log("this is stupid");
-                history.push("/account");
-              }}
-            >
-              Login/Register
-            </button> */}
-            {/*make a close button component?*/}
-            <button
-              onClick={(e) => {
-                handleClose();
-              }}
-            >
-              Close
-            </button>
-          </div>
-        )}
-
-        {token && isAuthor && isFeatured && (
-          <AuthorConsole
-            post={post}
-            handleClose={handleClose}
-            handleDelete={handleDelete}
-          />
-        )}
-        {token && !isAuthor && isFeatured && (
-          <>
-            <p>Send a message about this item:</p>
-            <textarea
-              type="text"
-              placeholder="Type message here..."
-              className="messageInput"
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-            />
+      {isFeatured && (
+        <div className="featuredFooter">
+          {!token && isFeatured && (
             <div className="buttonWrapper">
-              <button
-                onClick={(e) => {
-                  sendMessage(e);
-                }}
-              >
-                Send Message
-              </button>
-
+              <p>Please login to send a message</p>
               <button
                 onClick={(e) => {
                   handleClose();
@@ -141,9 +96,48 @@ const Post = ({
                 Close
               </button>
             </div>
-          </>
-        )}
-      </div>
+          )}
+
+          {token && isAuthor && isFeatured && (
+            <AuthorConsole
+              post={post}
+              handleClose={handleClose}
+              handleDelete={handleDelete}
+              featuredPost={featuredPost}
+            />
+          )}
+          {token && !isAuthor && isFeatured && (
+            <>
+              <p>Send a message about this item:</p>
+              <textarea
+                type="text"
+                placeholder="Type message here..."
+                className="messageInput"
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+              />
+              <div className="buttonWrapper">
+                <button
+                  onClick={(e) => {
+                    sendMessage(e);
+                  }}
+                >
+                  Send Message
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    handleClose();
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
