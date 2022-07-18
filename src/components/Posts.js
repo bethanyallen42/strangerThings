@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { apiCall } from "../api";
-import { NewPost } from "./index";
+import { CreateOrEditPost, Post } from "./index";
 
 const Posts = ({
   posts,
   setPosts,
   featuredPost,
   setFeaturedPost,
-  displayPost,
   token,
   user,
+  setUser,
+  makeNewPost,
+  setMakeNewPost,
 }) => {
   const [search, setSearch] = useState("");
-  const [makeNewPost, setMakeNewPost] = useState(false);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -22,11 +24,6 @@ const Posts = ({
       setPosts(postInfo.data.posts);
     })();
   }, [user]);
-
-  const handleClick = (post) => {
-    setFeaturedPost(post);
-    history.push(`/posts/${post._id}`);
-  };
 
   return (
     <div className="page">
@@ -45,10 +42,13 @@ const Posts = ({
         )}
       </div>
       {token && makeNewPost && (
-        <NewPost
+        <CreateOrEditPost
+          setUser={setUser}
+          makeNewPost={makeNewPost}
           setMakeNewPost={setMakeNewPost}
           token={token}
           setPosts={setPosts}
+          featuredPost={featuredPost}
         />
       )}
       {posts
@@ -59,13 +59,15 @@ const Posts = ({
         })
         .map((post) => {
           return (
-            <div
-              className="post"
+            <Post
               key={post._id}
-              onClick={() => handleClick(post)}
-            >
-              {displayPost(post)}
-            </div>
+              post={post}
+              featuredPost={featuredPost}
+              setFeaturedPost={setFeaturedPost}
+              token={token}
+              user={user}
+              posts={posts}
+            />
           );
         })}
     </div>

@@ -12,6 +12,9 @@ const App = () => {
   const [user, setUser] = useState(false);
   const [token, setToken] = useState("");
   const [featuredPost, setFeaturedPost] = useState({});
+  const [makeNewPost, setMakeNewPost] = useState(false);
+  console.log("app posts", posts);
+  console.log("app user", user);
 
   useEffect(() => {
     try {
@@ -23,34 +26,6 @@ const App = () => {
       console.error();
     }
   }, []);
-
-  // const [activePosts, setActivePosts] = useState([]);
-  // useEffect(() => {
-  //   if (user) {
-  //     setActivePosts(user.posts.filter((post) => post.active));
-  //     console.log("I just logged in", activePosts);
-  //   }
-  // }, [user]);
-
-  //should this be changed to a component?? how to use the variable?
-  const displayPost = (post) => {
-    return (
-      <>
-        <div className="postHeader">
-          <h2>{post.title && post.title}</h2>
-          <p>{post.price && post.price}</p>
-        </div>
-        <p className="postDescription">
-          {post.description && post.description}
-        </p>
-        <div className="postFooter">
-          <p>Location: {post.location ? post.location : "On Request"}</p>
-          <p>Author: {post.author.username && post.author.username}</p>
-          <p>{post.willDeliver ? "Will Deliver" : "Must Pickup"}</p>
-        </div>
-      </>
-    );
-  };
 
   return (
     <main>
@@ -74,20 +49,21 @@ const App = () => {
           setPosts={setPosts}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
-          displayPost={displayPost}
           token={token}
           user={user}
+          makeNewPost={makeNewPost}
+          setMakeNewPost={setMakeNewPost}
         />
         <Route path="/posts/:postId">
           {featuredPost && (
             <FeaturedPost
               featuredPost={featuredPost}
               setFeaturedPost={setFeaturedPost}
-              displayPost={displayPost}
               token={token}
               user={user}
               posts={posts}
               setPosts={setPosts}
+              setUser={setUser}
             />
           )}
         </Route>
@@ -100,7 +76,6 @@ const App = () => {
           setToken={setToken}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
-          displayPost={displayPost}
           // activePosts={activePosts}
           // setActivePosts={setActivePosts}
         />
@@ -109,9 +84,9 @@ const App = () => {
             <FeaturedPost
               featuredPost={featuredPost}
               setFeaturedPost={setFeaturedPost}
-              displayPost={displayPost}
               token={token}
               user={user}
+              setUser={setUser}
               posts={posts}
               setPosts={setPosts}
             />

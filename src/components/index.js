@@ -5,5 +5,7 @@ export { default as Account } from "./Account";
 export { default as FeaturedPost } from "./FeaturedPost";
 export { default as UserProfile } from "./UserProfile";
 export { default as LoginOrRegister } from "./LoginOrRegister";
-export { default as NewPost } from "./NewPost";
+export { default as CreateOrEditPost } from "./CreateOrEditPost";
 export { default as AuthorConsole } from "./AuthorConsole";
+export { default as Form } from "./Form";
+export { default as Post } from "./Post";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AuthorConsole = ({ featuredPost, handleClose }) => {
+const AuthorConsole = ({ post, handleClose, handleDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const handleEdit = () => {};
   return (
@@ -8,12 +8,12 @@ const AuthorConsole = ({ featuredPost, handleClose }) => {
       <div className="console">
         <h2>Messages</h2>
         <p>
-          {featuredPost.messages.length > 0
+          {post.messages.length > 0
             ? "Scroll to see more messages"
             : "You do not have any messages"}
         </p>
         <div className="messageDisplay">
-          {featuredPost.messages.map((message) => {
+          {post.messages.map((message) => {
             return (
               <div key={message._id} className="message">
                 <p>{message.content}</p>
@@ -44,6 +44,7 @@ const AuthorConsole = ({ featuredPost, handleClose }) => {
 
         <button
           onClick={(e) => {
+            console.log("I clicked this");
             handleClose();
           }}
         >

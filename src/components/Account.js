@@ -8,7 +8,6 @@ const Account = ({
   setUser,
   featuredPost,
   setFeaturedPost,
-  displayPost,
   // activePosts,
   // setActivePosts,
 }) => {
@@ -19,7 +18,6 @@ const Account = ({
           user={user}
           setToken={setToken}
           setUser={setUser}
-          displayPost={displayPost}
           featuredPost={featuredPost}
           setFeaturedPost={setFeaturedPost}
           // activePosts={activePosts}

@@ -60,11 +60,11 @@ button {
   margin: 0px 10px;
 }
 
-.accent1Background {
+.accountHeader {
   background-color: var(--accent3);
   text-align: center;
   padding: 0px 20px;
-  width: 50vw;
+  width: 100vw;
 }
 
 .post {
@@ -148,6 +148,31 @@ form {
 }
 
 .newPostForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--accent3);
+}
+
+.post > h3 {
+  background-color: var(--accent1);
+  padding: 2px;
+  text-align: center;
+}
+
+.newPostForm > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.newPostForm p {
+  width: 10vw;
+  text-align: right;
+}
+.newPostForm input {
+  margin-left: 3px;
 }
 
 .box {
