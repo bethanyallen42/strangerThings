@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { Home, Posts, Account, FeaturedPost, NewPost } from "./index";
 import "../styles.css";
-import { apiCall } from "../api";
 
 const App = () => {
   const BASE_URL =
@@ -14,7 +13,7 @@ const App = () => {
   const [featuredPost, setFeaturedPost] = useState({});
   const [makeNewPost, setMakeNewPost] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
-  
+
   useEffect(() => {
     try {
       const savedUser = JSON.parse(localStorage.getItem("user")).data;

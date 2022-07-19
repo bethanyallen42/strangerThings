@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 
 const Post = ({
   post,
-  setPost,
   featuredPost,
   setFeaturedPost,
   token,

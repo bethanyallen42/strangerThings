@@ -18,7 +18,6 @@ const CreateOrEditPost = ({
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("On Request");
   const [willDeliver, setWillDeliver] = useState(false);
-  console.log("in create or edit", featuredPost);
 
   const history = useHistory();
 
@@ -33,20 +32,16 @@ const CreateOrEditPost = ({
         willDeliver,
       },
     };
-    console.log("in submit but before if", token);
+
     if (makeNewPost) {
-      console.log("in handleSubmit", token);
       await apiCall("posts", "POST", token, post);
     } else {
-      console.log("in handleSubmit", token);
       const response = await apiCall(
         `posts/${featuredPost._id}`,
         "PATCH",
         token,
         post
       );
-      console.log("in handleSubmit", token);
-      console.log("i'm editing a post", response);
     }
 
     (async () => {
