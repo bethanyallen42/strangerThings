@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { apiCall } from "../api";
 import { Form } from "./index";
 
@@ -9,6 +10,8 @@ const CreateOrEditPost = ({
   makeNewPost,
   setMakeNewPost,
   featuredPost,
+  isFeatured,
+  setIsFeatured,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +19,8 @@ const CreateOrEditPost = ({
   const [location, setLocation] = useState("On Request");
   const [willDeliver, setWillDeliver] = useState(false);
   console.log("in create or edit", featuredPost);
+
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +33,9 @@ const CreateOrEditPost = ({
         willDeliver,
       },
     };
+    console.log("in submit but before if", token);
     if (makeNewPost) {
+      console.log("in handleSubmit", token);
       await apiCall("posts", "POST", token, post);
     } else {
       console.log("in handleSubmit", token);
@@ -56,6 +63,11 @@ const CreateOrEditPost = ({
     if (makeNewPost) {
       setMakeNewPost(false);
     }
+
+    if (!makeNewPost) {
+      setIsFeatured(!isFeatured);
+      history.goBack();
+    }
     alert("Post submitted");
   };
 
@@ -69,10 +81,10 @@ const CreateOrEditPost = ({
         setLocation={setLocation}
         willDeliver={willDeliver}
         setWillDeliver={setWillDeliver}
-        handleSubmit={handleSubmit}
         featuredPost={featuredPost}
         makeNewPost={makeNewPost}
         setMakeNewPost={setMakeNewPost}
+        handleSubmit={handleSubmit}
       />
     </div>
   );

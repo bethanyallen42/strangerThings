@@ -73,8 +73,6 @@ const Post = ({
 
     history.goBack();
   };
-  console.log("author", post.author);
-  console.log("user", user);
 
   return (
     <div className="post" key={post._id}>
@@ -90,7 +88,7 @@ const Post = ({
           Author:{" "}
           {post?.author?.username
             ? post.author.username
-            : user.username
+            : user?.username
             ? user.username
             : null}
         </p>
@@ -107,10 +105,14 @@ const Post = ({
           {token && isAuthor && isFeatured && (
             <AuthorConsole
               post={post}
+              token={token}
               handleClose={handleClose}
               handleDelete={handleDelete}
               featuredPost={featuredPost}
               setPosts={setPosts}
+              setUser={setUser}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
             />
           )}
           {token && !isAuthor && isFeatured && (

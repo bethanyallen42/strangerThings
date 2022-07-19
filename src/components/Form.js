@@ -12,8 +12,8 @@ const Form = ({
   makeNewPost,
   setMakeNewPost,
 }) => {
-  console.log("featured in form", featuredPost);
   const [required, setRequired] = useState();
+
   useEffect(() => {
     if (featuredPost) {
       setTitle(featuredPost.title);
@@ -36,26 +36,25 @@ const Form = ({
         <input
           required={required}
           type="text"
-          placeholder={featuredPost?.title ? featuredPost.title : "required"}
+          placeholder={required ? "required" : featuredPost?.title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
       <div>
         <p>Description:</p>
         <input
+          required={required}
           type="text"
-          placeholder={"required"}
-          // value={featuredPost?.description && featuredPost.description}
+          placeholder={required ? "required" : featuredPost?.description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
       <div>
         <p>Price:</p>
         <input
-          // required
+          required={required}
           type="text"
-          placeholder="required"
-          // value={featuredPost?.price && featuredPost.price}
+          placeholder={required ? "required" : featuredPost?.price}
           onChange={(e) => setPrice(e.target.value)}
         />
       </div>
@@ -63,14 +62,17 @@ const Form = ({
         <p>Location:</p>
         <input
           type="text"
-          // value={featuredPost?.location && featuredPost.location}
+          placeholder={featuredPost?.location && featuredPost.location}
           onChange={(e) => setLocation(e.target.value)}
         />
       </div>
       <div>
         <p>Will Deliver?</p>
-        {/* How do i make this be checked based off the featured post */}
-        <input type="checkbox" onChange={(e) => setWillDeliver(!willDeliver)} />
+        <input
+          type="checkbox"
+          checked={willDeliver}
+          onChange={(e) => setWillDeliver(!willDeliver)}
+        />
       </div>
       <button type="submit">
         {makeNewPost ? "Post Item" : "Submit Changes"}

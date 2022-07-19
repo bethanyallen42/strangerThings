@@ -7,15 +7,26 @@ const AuthorConsole = ({
   handleDelete,
   featuredPost,
   setPosts,
+  setUser,
+  token,
+  isFeatured,
+  setIsFeatured,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  console.log("declared", isEditing);
+
   return (
     <>
       <div className="console">
         {isEditing ? (
           <div>
-            <CreateOrEditPost featuredPost={featuredPost} setPosts={setPosts} />
+            <CreateOrEditPost
+              featuredPost={featuredPost}
+              token={token}
+              setPosts={setPosts}
+              setUser={setUser}
+              isFeatured={isFeatured}
+              setIsFeatured={setIsFeatured}
+            />
           </div>
         ) : (
           <>

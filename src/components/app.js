@@ -14,8 +14,7 @@ const App = () => {
   const [featuredPost, setFeaturedPost] = useState({});
   const [makeNewPost, setMakeNewPost] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
-  console.log(user);
-  console.log("featured Post", featuredPost);
+  
   useEffect(() => {
     try {
       const savedUser = JSON.parse(localStorage.getItem("user")).data;
